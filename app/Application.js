@@ -9,7 +9,8 @@ Ext.define('FileStash.Application', {
     name: 'FileStash',
 
     stores: [
-        'FileStash.store.widget.ContentStore'
+        'FileStash.store.widget.ContentStore',
+        'FileStash.store.ContentInfoStore'
     ],
     
     launch: function () {

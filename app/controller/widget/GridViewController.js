@@ -29,6 +29,9 @@ Ext.define('FileStash.controller.widget.GridViewController', {
 		//if( e.parentEvent.button != 2)
 		//alert('[Left Click] ' + record.get('caption'));
 		//this.fireEvent('updateContext', record, grid.getSelectionModel().getSelection().length );
+
+		this.fireEvent('itemClick', grid, record, item, index, e, options);
+
 	},
 	onSelectionChange : function( grid, selectedItems , options )
 	{
