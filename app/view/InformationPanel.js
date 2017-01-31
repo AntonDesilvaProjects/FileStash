@@ -8,7 +8,9 @@ Ext.define('FileStash.view.InformationPanel', {
 	extend : 'Ext.panel.Panel',
 	requires : [
 		'FileStash.controller.InformationPanelController',
-		'FileStash.view.widget.GeneralInfoPanel'
+		'FileStash.view.widget.GeneralInfoPanel',
+		'FileStash.view.widget.FileInfoPanel',
+		'FileStash.view.widget.FolderInfoPanel'
 	],
 	xtype : 'infoPanel',
 	title : 'Information Panel',
@@ -23,6 +25,14 @@ Ext.define('FileStash.view.InformationPanel', {
 			{
 				xtype : 'generalInfoPanel',
 				itemId : 'generalInfoPanel'
+			},
+			{
+				xtype : 'fileInfoPanel',
+				itemId : 'fileInfoPanel'
+			},
+			{
+				xtype : 'folderInfoPanel',
+				itemId : 'folderInfoPanel'
 			}
 		]
 

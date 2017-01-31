@@ -37,7 +37,7 @@ Ext.define('FileStash.controller.InformationPanelController', {
 	loadInfo : function( record )
 	{
 		//Select the appropriate View based on the record sent by server
-		this.parentView.getLayout().setActiveItem('generalInfoPanel');
+		this.parentView.getLayout().setActiveItem('folderInfoPanel');
 		//Load the data
 		this.parentView.getLayout().getActiveItem().loadRecord( record );
 	}
