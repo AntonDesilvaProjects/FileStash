@@ -7,7 +7,12 @@ Ext.define('FileStash.model.widget.ContentModel', {
 		},
 		{
 			name : 'isFolder',
-			type : 'boolean'
+			mapping : 'type',
+			type : 'boolean',
+			convert : function( value, record )
+			{
+				return value == 'Folder' ? true : false;
+			}
 		},
 		{
 			name : 'name',

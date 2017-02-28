@@ -3,8 +3,9 @@ Ext.define('FileStash.store.ContentInfoStore', {
 	requires : [
 		'FileStash.model.ContentInfoModel'
 	],
+	autoLoad : true,
 	model : 'FileStash.model.ContentInfoModel',
-	proxy : {
+	/*proxy : {
 		type : 'memory',
 		reader : {
 			type : 'json'
@@ -12,15 +13,16 @@ Ext.define('FileStash.store.ContentInfoStore', {
 	},
 	data : [
 		{ 'username' : 'peprika de silva', 'size' : '235 GB', 'lastModified' : '12/24/16' }
-	]
-	/*
-		proxy : {
-		type : 'json',
+	]*/
+	proxy : {
+		type : 'ajax',
 		method : 'GET',
-		url : '', //By default call the service to get the general FileStash info
+		//By default call the service to get the general FileStash info
+		url : 'http://localhost:3000/content/general?userId=4&from=-1&to=-1&pageSize=10&page=0', 
 		reader : {
 			type : 'json',
-			root : ''
+			rootProperty : ''
 		}
-	*/
+	}
 });
+	

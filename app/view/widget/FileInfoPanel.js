@@ -5,28 +5,29 @@ Ext.define('FileStash.view.widget.FileInfoPanel', {
 	initComponent : function()
 	{
 		this.fileImage = Ext.widget('image', {
-			src : 'http://www.bstlbd-ict.com/admin/asset/download_software_icon/BSTLIJLZ1460.jpg',
+			name : 'image',
+			src : '',
 			width : 100,
 			height : 100,
 			margin : '0 0 0 100'
 		});
 		this.lblFileName = Ext.widget('displayfield', {
-			name : 'fileName',
+			name : 'name',
 			fieldLabel : 'File Name',
 			value : 'Fantastic Beasts and Where to Find Them'
 		});
 		this.lblfileAuthor = Ext.widget('displayfield', {
-			name : 'fileAuthor',
+			name : 'author',
 			fieldLabel : 'Author',
 			value : 'Anton Desilva'
 		});
 		this.lblFileType = Ext.widget('displayfield', {
-			name : 'fileType',
+			name : 'type',
 			fieldLabel : 'File Type',
 			value : 'Microsoft Word 2015'
 		});
 		this.lbluploadDate = Ext.widget('displayfield', {
-			name : 'uploadDate',
+			name : 'readbleUploadTime',
 			fieldLabel : 'Date Uploaded',
 			value : '12/25/2016 10:23 am'
 		});
@@ -40,5 +41,14 @@ Ext.define('FileStash.view.widget.FileInfoPanel', {
 		];
 
 		this.callParent( arguments 	);
+	},
+	loadRecord : function( record )
+	{
+		this.fileImage.setSrc( record.get('image') );
+		this.callParent(arguments);
+	},	
+	loadLogs : function( data )
+	{
+		//this.logGrid.getStore().loadRawData( data );
 	}
 });

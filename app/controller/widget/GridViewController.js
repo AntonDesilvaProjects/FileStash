@@ -29,6 +29,7 @@ Ext.define('FileStash.controller.widget.GridViewController', {
 		//if( e.parentEvent.button != 2)
 		//alert('[Left Click] ' + record.get('caption'));
 		//this.fireEvent('updateContext', record, grid.getSelectionModel().getSelection().length );
+		//alert( record.get('isFolder'));
 
 		this.fireEvent('itemClick', grid, record, item, index, e, options);
 
@@ -39,7 +40,10 @@ Ext.define('FileStash.controller.widget.GridViewController', {
 	},
 	onItemDoubleClick : function( grid, record, item, index, e, options)
 	{
-		this.getView().getStore().loadInnerContent();
+		if( !record.get('isFolder'))
+			return false;
+		this.getView().getStore().getProxy().url = 'http://localhost:3000/content/directory/' + record.get('id');
+		this.getView().getStore().load();
 		this.parentContainer.traverse(record.get('name'));
 	}
 });

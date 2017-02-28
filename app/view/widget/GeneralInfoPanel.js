@@ -5,35 +5,54 @@ Ext.define('FileStash.view.widget.GeneralInfoPanel', {
 	initComponent : function()
 	{
 		this.lblUsername = Ext.widget('displayfield', {
-			name : 'username',
+			name : 'fullName',
 			fieldLabel : 'User',
-			value : 'Anton Desilva'
+			//value : 'Anton Desilva'
 		});
 		this.lblSize = Ext.widget('displayfield', {
-			name : 'size',
+			name : 'fileStashSize',
 			fieldLabel : 'Size',
-			value : '758 GB'
+			//value : '758 GB'
 		});
 		this.lblLastModified = Ext.widget('displayfield', {
-			name : 'lastModified',
+			name : 'readableLastModified',
 			fieldLabel : 'Last Modified',
-			value : 'Wed. 12 December, 2017 8:54 PM'
+			//value : 'Wed. 12 December, 2017 8:54 PM'
+		});
+
+		this.logStore = Ext.create('Ext.data.Store', {
+			fields : [
+				'contentName',
+				'logAction',
+				'readableLogTime'
+			],
+			proxy : {
+				type : 'memory',
+				reader : {
+					type : 'json',
+					rootProperty : ''
+				}
+			}
 		});
 
 		this.logGrid = Ext.widget( 'grid', {
-			store : null,
+			name : 'logs',
+			store : this.logStore,
 			columns : [
 				{
 					text : '',
-					flex : 1
+					flex : 1,
+					dataIndex : 'logAction'
 				},
 				{
 					text : 'Item',
-					flex : 2
+					flex : 2,
+					dataIndex : 'contentName'
 				},
 				{
 					text : 'Date/Time',
-					flex : 2
+					flex : 2,
+					dataIndex : 'readableLogTime'
 				}
 			],
 			padding : '10 0 0 0'
@@ -47,5 +66,9 @@ Ext.define('FileStash.view.widget.GeneralInfoPanel', {
 		];
 
 		this.callParent( arguments );
+	},
+	loadLogs : function( data )
+	{
+		this.logGrid.getStore().loadRawData( data );
 	}
 });

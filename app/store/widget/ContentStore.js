@@ -1,16 +1,17 @@
 Ext.define('FileStash.store.widget.ContentStore', {
 	extend : 'Ext.data.ArrayStore',
 	model : 'FileStash.model.widget.ContentModel',
-	/*proxy : {
-		type : 'json',
+	autoLoad : true,
+	proxy : {
+		type : 'ajax',
 		method : 'GET',
-		url : '',
+		url : 'http://localhost:3000/content/directory/16',
 		reader : {
 			type : 'json',
-			root : ''
+			//root : ''
 		}
-	}*/
-	proxy : {
+	},
+	/*proxy : {
 		type : 'memory',
 		reader : {
 			type : 'json'
@@ -22,7 +23,7 @@ Ext.define('FileStash.store.widget.ContentStore', {
 		{ 'id' : 2 , 'isFolder' : true , 'name' : 'bin', 'image' : 'http://www.graphicsfuel.com/wp-content/uploads/2012/03/folder-icon-512x512.png'},
 		{ 'id' : 3 , 'isFolder' : false , 'name' : 'Studies of the Unknown', 'image' : 'http://www.reviversoft.com/blog/wp-content/uploads/2013/05/compatibility_word_icon.png'},
 		{ 'id' : 4 , 'isFolder' : false , 'name' : 'http://www.reviversoft.com/blog/wp-content/uploads/2013/05/compatibility_word_icon.png/http://www.reviversoft.com/blog/wp-content/uploads/2013/05/compatibility_word_icon.png', 'image' : 'http://www.reviversoft.com/blog/wp-content/uploads/2013/05/compatibility_word_icon.png'}
-	],
+	],*/
 	loadInnerContent : function()
 	{
 		this.removeAll();

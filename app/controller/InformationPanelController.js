@@ -19,11 +19,14 @@ Ext.define('FileStash.controller.InformationPanelController', {
 	},
 	onItemClick : function(grid, record, item, index, e, options)
 	{
-		//Set appropirate parameters before load to get the correct data
-		this.infoStore.load();
+		//Set appropriate parameters before load to get the correct data
+		//this.infoStore.load();
+		console.log( record );
+		this.loadInfo( record );
 	},
 	onInfoStoreLoad : function(store, records, successful, eOpts )
 	{
+		console.log( records );
 		this.loadInfo(store.getAt(0));
 	},
 	onCollapse : function()
@@ -37,8 +40,21 @@ Ext.define('FileStash.controller.InformationPanelController', {
 	loadInfo : function( record )
 	{
 		//Select the appropriate View based on the record sent by server
-		this.parentView.getLayout().setActiveItem('folderInfoPanel');
-		//Load the data
-		this.parentView.getLayout().getActiveItem().loadRecord( record );
+		if( record.get('isFolder') == true )
+		{
+			this.parentView.getLayout().setActiveItem('folderInfoPanel');
+			this.parentView.getLayout().getActiveItem().loadRecord( record );
+		}
+		else if ( record.get('isFolder') == false )
+		{
+			this.parentView.getLayout().setActiveItem('fileInfoPanel');
+			this.parentView.getLayout().getActiveItem().loadRecord( record );
+		}
+		else
+		{
+			//Load the data
+			this.parentView.getLayout().getActiveItem().loadRecord( record );
+			this.parentView.getLayout().getActiveItem().loadLogs( record.get('logs') );
+		}
 	}
 });
