@@ -22,12 +22,12 @@ Ext.define('FileStash.view.ContentPanel', {
 		This function is responsible for adding new folders to
 		the navigation section. 
 	*/
-	traverse : function( dir , id )
+	traverse : function( dir , id ) 
 	{
 		//Add the home button if it's not there
 		if( this.items.length == 1)
 		{
-			var homeButton = this.createButton('MyStash', 1); 
+			var homeButton = this.createButton('MyStash', 1, null, -1); 
 			this.add( homeButton );
 			this.usedWidth += homeButton.getWidth();
 			this.navigationList.push({
@@ -42,7 +42,7 @@ Ext.define('FileStash.view.ContentPanel', {
 		if( potentialWidth > 0 )
 		{
 			this.usedWidth += potentialWidth;
-			this.add( this.createButton(dir , this.items.length) );
+			this.add( this.createButton(dir , this.items.length, null, id) );
 			this.navigationList.push({
 				name : dir,
 				id : id,
@@ -79,7 +79,7 @@ Ext.define('FileStash.view.ContentPanel', {
 					deficit += (allItems[i].getWidth() - (currentWidth - diff));
 			}
 			this.usedWidth = this.getWidth(); //May need to change later as panel can become bigger
-	 		this.add( this.createButton(dir, this.items.length , potentialWidth - deficit) );
+	 		this.add( this.createButton(dir, this.items.length , potentialWidth - deficit, id) );
 	 		this.navigationList.push({
 				name : dir,
 				id : id,
@@ -113,7 +113,7 @@ Ext.define('FileStash.view.ContentPanel', {
 			return (-1 * width);
 
 	},
-	createButton : function( str , index, wdth )
+	createButton : function( str , index, wdth, directoryId )
 	{
 		var btn = Ext.widget('button', {
 			text : str,
@@ -123,6 +123,7 @@ Ext.define('FileStash.view.ContentPanel', {
 			handler : function()
 			{
 				//alert(this.parentPanel.navigationList[this.index - 1].name);
+				this.parentPanel.getController().loadDirectoryContent(directoryId);
 				this.parentPanel.removeDirectory(this.index - 1);
 			}
 		});

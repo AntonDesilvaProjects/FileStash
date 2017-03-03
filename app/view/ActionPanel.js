@@ -12,24 +12,41 @@ Ext.define('FileStash.view.ActionPanel', {
 	],
 	title : 'Action Panel',
 	xtype : 'actionPanel',
-	width : 250,
+	width : 290,
 	border : 1,
 	controller : 'actionPanelController',
-	intiComponent : function()
+	layout : 'vbox',
+	initComponent : function()
 	{
+
+		this.uploadBtn = Ext.widget('button', {
+			text : 'Upload',
+			handler : 'onUploadBtnClick',
+		});
+		this.uploadFieldSet = Ext.widget('fieldset', {
+			title : 'Upload Files',
+			width : '100%',
+			collapsible : true,
+			layout : 'vbox',
+			items : [
+				this.uploadBtn,
+				{
+					xtype : 'label',
+					text : 'In Progress'
+				}
+			]
+		});
+
+
 		this.items = [
-			{
-				xtype : 'textfield',
-				height : 10,
-				width : 100,
-				margin : '20 30 0 0'
-			}
-		]
+			this.uploadFieldSet
+		];
 		this.callParent(arguments);
 	},
 	listeners : {
 		expand : 'onExpand',
 		collapse : 'onCollapse'
-	}
+	},
+	//create
 });
 

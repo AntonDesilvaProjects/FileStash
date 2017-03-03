@@ -2,6 +2,7 @@ Ext.define('FileStash.store.widget.ContentStore', {
 	extend : 'Ext.data.ArrayStore',
 	model : 'FileStash.model.widget.ContentModel',
 	autoLoad : true,
+	rootDirectoryId : 16,
 	proxy : {
 		type : 'ajax',
 		method : 'GET',
@@ -10,6 +11,23 @@ Ext.define('FileStash.store.widget.ContentStore', {
 			type : 'json',
 			//root : ''
 		}
+	},
+	loadDirectoryContent : function( directoryId )
+	{
+		//If -1 is passed in, load the root directory
+		if( directoryId == -1)
+			directoryId = this.rootDirectoryId;
+		
+		this.getProxy().url = 'http://localhost:3000/content/directory/' + directoryId;
+		this.load();
+	},
+	setRootDirectoryId : function( rootDirId )
+	{
+		this.rootDirectoryId = rootDirId;
+	},
+	loadRootDirectory : function( )
+	{
+		this.loadDirectoryContent( this.rootDirectoryId );
 	},
 	/*proxy : {
 		type : 'memory',

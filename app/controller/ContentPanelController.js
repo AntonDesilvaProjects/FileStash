@@ -16,5 +16,9 @@ Ext.define('FileStash.controller.ContentPanelController', {
 	{
 		//alert('panel resized: ' + this.getView().getWidth() );
 		this.getView().redrawNavigation();
+	},
+	loadDirectoryContent : function( directoryId )
+	{
+		this.fireEvent('loadDirectoryContent', directoryId);
 	}
 });

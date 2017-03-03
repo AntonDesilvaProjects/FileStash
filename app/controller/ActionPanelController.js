@@ -5,6 +5,10 @@ Ext.define('FileStash.controller.ActionPanelController',{
 	{
 
 	},
+	onUploadBtnClick : function()
+	{
+		alert('upload btn clicked !');
+	},
 	onCollapse : function()
 	{
 		this.fireEvent('panelResize', 'collapse' );

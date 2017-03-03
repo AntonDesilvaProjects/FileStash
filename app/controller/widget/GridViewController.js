@@ -5,6 +5,17 @@ Ext.define('FileStash.controller.widget.GridViewController', {
 	{
 		this.parentContainer = this.getView().up('panel');
 	},
+	listen : {
+		controller : {
+			'*' : {
+				loadDirectoryContent : 'onLoadDirectoryContent'
+			}
+		}
+	},
+	onLoadDirectoryContent : function( directoryId )
+	{
+		this.getView().getStore().loadDirectoryContent( directoryId );
+	},
 	onItemSelect : function( grid, record, options)
 	{
 		//alert(record.get('caption'));
@@ -42,8 +53,7 @@ Ext.define('FileStash.controller.widget.GridViewController', {
 	{
 		if( !record.get('isFolder'))
 			return false;
-		this.getView().getStore().getProxy().url = 'http://localhost:3000/content/directory/' + record.get('id');
-		this.getView().getStore().load();
-		this.parentContainer.traverse(record.get('name'));
+		this.getView().getStore().loadDirectoryContent( record.get('id') );
+		this.parentContainer.traverse(record.get('name'), record.get('id'));
 	}
 });
