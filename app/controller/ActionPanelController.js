@@ -3,11 +3,28 @@ Ext.define('FileStash.controller.ActionPanelController',{
 	alias : 'controller.actionPanelController',
 	init : function()
 	{
-
+		this.parentView = this.getView();
+		this.uploadForm = this.lookupReference('uploadForm');
 	},
-	onUploadBtnClick : function()
+	onSelectFileBtnClick : function( fileSelectInput, value, eOpts)
 	{
-		alert('upload btn clicked !');
+		//alert('in here');
+		//this.parentView.addFileUpload('C://File');
+		//Call the form submit method here
+		this.uploadForm.getForm().submit({
+			url : 'http://localhost:3000/content/upload',
+			failure : function(form, response)
+			{
+				alert('failure');
+				console.log(form);
+				console.log(response);
+			},
+			success : function(form, response)
+			{
+				alert('sucess');
+			}
+		});
+		//Attach a callback, once successful, add progress bar
 	},
 	onCollapse : function()
 	{

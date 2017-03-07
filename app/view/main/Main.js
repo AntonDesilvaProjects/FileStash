@@ -44,7 +44,8 @@ Ext.define('FileStash.view.main.Main', {
         {
             xtype : 'actionPanel',
             region : 'west',
-            collapsible : true
+            collapsible : true,
+            autoScroll : true
         },
         {
             xtype : 'infoPanel',
