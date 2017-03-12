@@ -25,6 +25,7 @@ Ext.define('FileStash.view.ActionPanel', {
 			buttonOnly : true,
 			hideLabel : true,
 			name : 'uploadItem',
+			itemId : 'uploadItem',
 			listeners : {
 				change : 'onSelectFileBtnClick'
 			}
@@ -72,21 +73,29 @@ Ext.define('FileStash.view.ActionPanel', {
 		expand : 'onExpand',
 		collapse : 'onCollapse'
 	},
-	addFileUpload : function( fileName )
+	addFileUpload : function( fileName, xhrId, controller )
 	{
+		var scope = this;
+
 		var progressBar = Ext.widget('progressbar', {
 			text : fileName,
-			width :'90%',
-			value : 0.5
+			name : 'pb' + fileName,
+			width :'88%',
+			border : 1,
+			value : 0.0
 		});
 
+		/*Using Font-Awesome icons for the cancel button*/
 		var btnCancel = Ext.widget('button', {
-			text : 'X',
-			margin : ' 0 0 0 5',
-			height : '5',
+			margin : '0 0 0 10',
+			padding : '0 0 3 0',
+			height : 20,
+			html : '<i class="fa fa-trash-o" aria-hidden="true"></i>',
+			hidden : false,
 			handler : function()
 			{
-				alert('sds');
+				controller.cancelUpload( xhrId );
+				scope.removeFileUploadPanel( xhrId );
 			}
 		});
 
@@ -94,15 +103,27 @@ Ext.define('FileStash.view.ActionPanel', {
 			width : '100%',
 			layout : 'hbox',
 			margin : '5 0 5 0',
+			fileUploadId : xhrId,
 			items : [
 				progressBar,
 				btnCancel
 			]
 		});
-
-		
 		progressBar.updateText(fileName);
 		this.uploadFieldSet.add(fileUpload);
+
+		return progressBar;
+	},
+	removeFileUploadPanel : function( xhrId )
+	{
+		var items = this.uploadFieldSet.items.getRange();
+	//	console.log(items);
+		for( var i = 0; i < items.length; i++)
+		{
+			console.log(items[i]);
+			if( items[i].fileUploadId == xhrId )
+				this.uploadFieldSet.remove(items[i], true);
+		}
 	}
 });
 
